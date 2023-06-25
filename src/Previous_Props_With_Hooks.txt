@@ -1,0 +1,59 @@
+In App.js
+
+import './App.css';
+import React, { useState } from 'react'
+function App() {
+  const [count,setCount]=useState(0)
+  function updateCounter()
+  {
+    let item=Math.floor(Math.random()*10)
+    setCount((pre)=>{ // the setCount as a callback will always take previous value
+      if(pre<3)
+      {
+        alert("last value is very low")
+        console.warn(pre);
+      }
+      return item
+    })
+    // for(let i=0;i<10;i++)
+    // {
+    //   setCount((pre)=>pre+1)
+    // }
+  }
+  return (
+    <div className="App">
+      <h1>{count}</h1>
+      <button  onClick={updateCounter}>Click Me to Update counter</button>
+    </div>
+  );
+}
+export default App;
+
+In Child.js
+
+import React,{useEffect,useRef} from 'react'
+function Child(props)
+{
+    const lastVal=useRef();
+    useEffect(()=>{
+        lastVal.current=props.count
+    })
+    const previousProps=lastVal.current
+    return(
+        <div>
+            <h1>Count is  : {props.count}</h1>
+            <h1>previous Props is  : {previousProps}</h1>
+
+        </div>
+    )
+}
+
+export default Child
+
+/*
+ the useEffect hook will be executed after the initial render and every time the props.count value changes.
+ This function will be called after the component has rendered, and it updates the lastVal.current value with the current value of props.count.
+
+Since the dependencies array is empty ([]), the useEffect hook will only run once after the initial render.
+ After the component renders for the first time, the useEffect hook will run.
+*/

@@ -1,0 +1,44 @@
+import './App.css';
+import { useState } from 'react';
+
+function App() {
+  const [name, setName] = useState("");
+  const [tnc, setTnc] = useState(false);
+  const [interest, setInterest] = useState("");
+
+  function getFormData(val) {
+    console.warn(name, tnc, interest);
+    val.preventDefault(); // If we have not given preventDefault and click on submit the form will get submitted so to prevent that
+    // we have given preventDefault
+    /*Calling preventDefault() stops the default form submission behavior from occurring, allowing you to handle the form data in a custom way within your React component. In this case, e.preventDefault() (or val.preventDefault()) is used to prevent the default form submission behavior and avoid page refresh. */
+  }
+  function updateName(val) {
+    setName(val.target.value);
+  }
+  function Interest(val) {
+    setInterest(val.target.value);
+  }
+  function Terms_Condition(val) {
+    setTnc(val.target.checked);
+  }
+
+  return (
+    <div className="App">
+      <h1>Handle Form in React</h1>
+      <form  onSubmit={getFormData}>
+        <input type="text" placeholder="enter name" value={name} onChange={updateName} /> <br /><br />
+        <select onChange={Interest}>
+          <option>Select Options</option>
+          <option>Marvel</option>
+          <option>DC</option>
+        </select> <br /><br />
+        <input type="checkbox" onChange={Terms_Condition} /><span>Accept Terms and conditions</span>
+        <br /><br />
+        <button type="submit">Submit</button>
+        <button style={{ margin: 10 }}>Clear</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;

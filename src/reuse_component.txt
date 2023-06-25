@@ -1,0 +1,62 @@
+In App.js
+
+import './App.css';
+import React from 'react'
+import User from './User'
+function App() {
+  const users = [
+    {
+      name: 'Anil', email: 'anil@test.com', contact: "111"
+    },
+    {
+      name: 'Burce', email: 'bruce@test.com', contact: "222"
+    },
+    {
+      name: 'Peter', email: 'peter@test.com', contact: "333"
+    },
+    {
+      name: 'Sam', email: 'sam@test.com', contact: "444"
+    },
+  ]
+  return (
+    <div className="App">
+      <h1>Reuse Component with List</h1>
+      
+      {
+        users.map((item)=><User  data={item} />)
+      }
+    </div>
+  );
+}
+
+export default App;
+
+-------------------------------------------------------------------------
+
+In User.js
+
+function User(props) {
+
+    return (
+        <div>
+            <span>{props.data.name}</span>
+            <span> {props.data.email}</span>
+            <span> {props.data.contact}</span>
+        </div>
+
+    )
+}
+
+export default User;
+
+---------------------------------------------------------------------------
+
+In App.css
+
+span{
+  padding: 10px;
+    background-color: #666;
+    font-size: 18px;
+    line-height: 60px;
+    color: #fff;
+}

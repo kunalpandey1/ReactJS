@@ -1,0 +1,56 @@
+In app.js
+
+import './App.css';
+import React from 'react'
+import {BrowserRouter as Router,Link,Route} from 'react-router-dom'
+import User from './User'
+function App() {
+  let user=[
+    {name:'anil',id:1},
+    {name:'peter',id:2},
+    {name:'bruce',id:3},
+    {name:'tony',id:4},
+  ]
+  return (
+    <div className="App">
+      <Router>
+      <h1>React Dynamic Routing</h1>
+      {
+        user.map((item)=>
+      <div><Link to={"/user/"+item.id+"/"+item.name}>{item.name}</Link></div>)
+      }
+      <Route path="/user/:id/:name" ><User /></Route>
+      </Router>
+    </div>
+  );
+}
+export default App;
+------------------------------------------------------------------------------------------------
+
+In User.js
+
+import {withRouter} from 'react-router-dom'
+function User(props)
+{
+    console.warn(props)
+    return(
+    <div><h1>User No {props.match.params.id}</h1>
+    <h1>User Name {props.match.params.name}</h1></div>
+
+    )
+}
+
+export default withRouter(User);
+
+
+/* The withRouter higher-order component works by wrapping the User component and injecting additional props related to routing.
+
+Here's how it works step-by-step:
+
+1 Import the withRouter function from the react-router-dom library:
+2 Wrap the User component with the withRouter function when exporting it:
+
+The withRouter function returns a new component that has access to the routing-related props (match, location, and history). These props are automatically passed to the wrapped component (User).
+
+Inside the User component, you can access the routing-related props through the props object: */
+

@@ -1,0 +1,56 @@
+// In Routes.js
+
+import{Navigate,useRoutes} from 'react-router-dom';
+
+// import all web pages
+
+import {Login,Homepage,Dashboard} from '../pages';
+
+const allRoutes = () =>{
+    //Get auth token you can replace it with auth token logic
+
+     const token = false;
+
+     const publicRoutes = [
+        {
+        path:'/',
+        exact:true,
+        element:<Homepage/>
+     }
+    ];
+
+    const privateRoutes = [
+        {
+        path:'/login',
+        exact:true,
+        element:!token ? <login/> : <Navigate to= {'/dashboard'} />
+    },
+    {
+        path:'/dashboard',
+        exact:true,
+        element:token ? <Dashboard /> : <Navigate to = {'/login'} />
+    }
+
+   ];
+
+   return {...publicRoutes,...privateRoutes};
+};
+
+export default function Routes(){
+    const appRoutes = allRoutes()
+    return useRoutes(appRoutes);
+}
+
+
+// In app.js
+
+
+import Routes from './routes';
+
+export default function App(){
+    return (
+       <>
+           <Routes/>
+       </>
+   );    
+}
